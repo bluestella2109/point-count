@@ -184,6 +184,23 @@ select {
     outline: none;
 }
 
+#numberInput {
+    width: 100%;
+    background: #080808;
+    color: white;
+    border: 1px solid #333;
+    padding: 15px;
+    border-radius: 4px;
+    font-size: 15px;
+    outline: none;
+    font-family: inherit;
+    letter-spacing: 0.08em;
+}
+
+#numberInput:focus {
+    border-color: white;
+}
+
 select:focus {
     border-color: white;
 }
@@ -505,21 +522,4 @@ footer {
         font-size: 11px;
         padding: 8px;
     }
-}
-
-#numberInput {
-    width: 100%;
-    background: #080808;
-    color: white;
-    border: 1px solid #333;
-    padding: 15px;
-    border-radius: 4px;
-    font-size: 15px;
-    outline: none;
-    font-family: inherit;
-    letter-spacing: 0.08em;
-}
-
-#numberInput:focus {
-    border-color: white;
 }
