@@ -22,3 +22,165 @@
         <button class="tab active" id="inputTab">点数入力</button>
         <button class="tab" id="listTab">点数一覧</button>
     </nav>
+
+
+    <!-- =========================
+         ① 点数入力画面
+    ========================== -->
+
+    <section id="inputScreen" class="screen active">
+
+        <div class="section-title">
+            <span>01</span>
+            <div>
+                <h2>点数を入力</h2>
+                <p>番号・人数を選択し、点数を入力してください。</p>
+            </div>
+        </div>
+
+        <div class="form-card">
+
+            <div class="select-row">
+
+                <div class="form-group">
+                    <label for="numberSelect">番号</label>
+
+                    <select id="numberSelect">
+                        <option value="">選択してください</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="peopleSelect">人数</label>
+
+                    <select id="peopleSelect">
+                        <option value="">選択してください</option>
+                        <option value="1">1人</option>
+                        <option value="2">2人</option>
+                        <option value="3">3人</option>
+                        <option value="4">4人</option>
+                        <option value="5">5人</option>
+                        <option value="6">6人</option>
+                        <option value="7">7人</option>
+                        <option value="8">8人</option>
+                        <option value="9">9人</option>
+                        <option value="10">10人</option>
+                    </select>
+                </div>
+
+            </div>
+
+
+            <div class="score-area">
+
+                <label>点数</label>
+
+                <div class="score-display">
+                    <span id="scoreDisplay">0</span>
+                    <span class="score-unit">点</span>
+                </div>
+
+                <div class="keypad">
+
+                    <button class="key" data-number="1">1</button>
+                    <button class="key" data-number="2">2</button>
+                    <button class="key" data-number="3">3</button>
+
+                    <button class="key" data-number="4">4</button>
+                    <button class="key" data-number="5">5</button>
+                    <button class="key" data-number="6">6</button>
+
+                    <button class="key" data-number="7">7</button>
+                    <button class="key" data-number="8">8</button>
+                    <button class="key" data-number="9">9</button>
+
+                    <button class="key key-clear" id="clearButton">C</button>
+                    <button class="key" data-number="0">0</button>
+                    <button class="key key-back" id="backButton">←</button>
+
+                </div>
+
+            </div>
+
+
+            <button class="submit-button" id="submitButton">
+                点数を送信
+            </button>
+
+            <p id="inputMessage" class="message"></p>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         ② 点数一覧画面
+    ========================== -->
+
+    <section id="listScreen" class="screen">
+
+        <div class="section-title">
+            <span>02</span>
+            <div>
+                <h2>点数一覧</h2>
+                <p>送信された点数を確認してください。</p>
+            </div>
+        </div>
+
+
+        <div class="list-header">
+
+            <div>
+                <p class="list-label">現在の登録数</p>
+                <strong id="totalCount">0</strong>
+                <span>件</span>
+            </div>
+
+            <button id="clearAllButton" class="danger-button">
+                全データ削除
+            </button>
+
+        </div>
+
+
+        <div class="table-wrapper">
+
+            <table>
+
+                <thead>
+                    <tr>
+                        <th>番号</th>
+                        <th>人数</th>
+                        <th>点数</th>
+                        <th>状態</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+
+                <tbody id="scoreTableBody">
+                </tbody>
+
+            </table>
+
+        </div>
+
+
+        <div id="emptyMessage" class="empty">
+            まだ点数は送信されていません。
+        </div>
+
+    </section>
+
+</main>
+
+
+<footer>
+    <p>文化祭 点数共有システム</p>
+</footer>
+
+
+<script src="script.js"></script>
+
+</body>
+</html>
