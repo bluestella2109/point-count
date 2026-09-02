@@ -2,27 +2,50 @@
 <html lang="ja">
 
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
     <title>点数共有システム</title>
 
-    <link rel="stylesheet" href="style.css">
+    <link
+        rel="stylesheet"
+        href="style.css"
+    >
+
 </head>
+
 
 <body>
 
+
 <header class="header">
+
     <div class="header-inner">
-        <h1>点数共有システム</h1>
-        <p>FESTIVAL SCORE SYSTEM</p>
+
+        <h1>
+            点数共有システム
+        </h1>
+
+        <p>
+            FESTIVAL SCORE SYSTEM
+        </p>
+
     </div>
+
 </header>
 
 
 <main class="container">
 
-    <!-- タブ -->
+
+    <!-- =========================
+         タブ
+    ========================== -->
 
     <nav class="tabs">
 
@@ -32,6 +55,7 @@
         >
             点数入力
         </button>
+
 
         <button
             id="listTab"
@@ -43,8 +67,9 @@
     </nav>
 
 
+
     <!-- =========================
-         点数入力
+         点数入力画面
     ========================== -->
 
     <section
@@ -52,30 +77,43 @@
         class="screen active"
     >
 
+
         <div class="section-title">
 
-            <span>01</span>
+            <span>
+                01
+            </span>
+
 
             <div>
-                <h2>点数を入力</h2>
+
+                <h2>
+                    点数を入力
+                </h2>
 
                 <p>
                     番号・人数を確認して点数を入力してください。
                 </p>
+
             </div>
 
         </div>
 
 
+
         <div class="form-card">
 
-            <!-- 番号 -->
+
+            <!-- =========================
+                 番号
+            ========================== -->
 
             <div class="form-group">
 
                 <label for="numberInput">
                     番号
                 </label>
+
 
                 <input
                     type="text"
@@ -89,7 +127,10 @@
             </div>
 
 
-            <!-- 人数 -->
+
+            <!-- =========================
+                 人数
+            ========================== -->
 
             <div class="form-group">
 
@@ -97,31 +138,67 @@
                     人数
                 </label>
 
-                <select id="peopleSelect">
+
+                <select
+                    id="peopleSelect"
+                >
 
                     <option value="">
                         選択してください
                     </option>
 
-                    <option value="1">1人</option>
-                    <option value="2">2人</option>
-                    <option value="3">3人</option>
-                    <option value="4">4人</option>
-                    <option value="5">5人</option>
-                    <option value="6">6人</option>
-                    <option value="7">7人</option>
-                    <option value="8">8人</option>
-                    <option value="9">9人</option>
-                    <option value="10">10人</option>
+                    <option value="1">
+                        1人
+                    </option>
+
+                    <option value="2">
+                        2人
+                    </option>
+
+                    <option value="3">
+                        3人
+                    </option>
+
+                    <option value="4">
+                        4人
+                    </option>
+
+                    <option value="5">
+                        5人
+                    </option>
+
+                    <option value="6">
+                        6人
+                    </option>
+
+                    <option value="7">
+                        7人
+                    </option>
+
+                    <option value="8">
+                        8人
+                    </option>
+
+                    <option value="9">
+                        9人
+                    </option>
+
+                    <option value="10">
+                        10人
+                    </option>
 
                 </select>
 
             </div>
 
 
-            <!-- 点数 -->
+
+            <!-- =========================
+                 点数
+            ========================== -->
 
             <div class="score-area">
+
 
                 <label>
                     点数
@@ -130,7 +207,10 @@
 
                 <div class="score-display">
 
-                    <span id="scoreDisplay">0</span>
+                    <span id="scoreDisplay">
+                        0
+                    </span>
+
 
                     <span class="score-unit">
                         点
@@ -139,81 +219,134 @@
                 </div>
 
 
-                <!-- テンキー -->
+
+                <!-- =========================
+                     テンキー
+                ========================== -->
 
                 <div class="keypad">
 
+
                     <button
+                        type="button"
                         class="key"
                         data-number="1"
-                    >1</button>
+                    >
+                        1
+                    </button>
+
 
                     <button
+                        type="button"
                         class="key"
                         data-number="2"
-                    >2</button>
+                    >
+                        2
+                    </button>
+
 
                     <button
+                        type="button"
                         class="key"
                         data-number="3"
-                    >3</button>
+                    >
+                        3
+                    </button>
 
 
                     <button
+                        type="button"
                         class="key"
                         data-number="4"
-                    >4</button>
+                    >
+                        4
+                    </button>
+
 
                     <button
+                        type="button"
                         class="key"
                         data-number="5"
-                    >5</button>
+                    >
+                        5
+                    </button>
+
 
                     <button
+                        type="button"
                         class="key"
                         data-number="6"
-                    >6</button>
+                    >
+                        6
+                    </button>
 
 
                     <button
+                        type="button"
                         class="key"
                         data-number="7"
-                    >7</button>
+                    >
+                        7
+                    </button>
+
 
                     <button
+                        type="button"
                         class="key"
                         data-number="8"
-                    >8</button>
+                    >
+                        8
+                    </button>
+
 
                     <button
+                        type="button"
                         class="key"
                         data-number="9"
-                    >9</button>
+                    >
+                        9
+                    </button>
 
 
                     <button
+                        type="button"
                         class="key key-clear"
                         id="clearButton"
-                    >C</button>
+                    >
+                        C
+                    </button>
+
 
                     <button
+                        type="button"
                         class="key"
                         data-number="0"
-                    >0</button>
+                    >
+                        0
+                    </button>
+
 
                     <button
+                        type="button"
                         class="key key-back"
                         id="backButton"
-                    >←</button>
+                    >
+                        ←
+                    </button>
+
 
                 </div>
 
             </div>
 
 
-            <!-- 送信 -->
+
+            <!-- =========================
+                 送信
+            ========================== -->
 
             <button
+                type="button"
                 id="submitButton"
                 class="submit-button"
             >
@@ -226,13 +359,15 @@
                 class="message"
             ></p>
 
+
         </div>
 
     </section>
 
 
+
     <!-- =========================
-         点数一覧
+         点数一覧画面
     ========================== -->
 
     <section
@@ -240,16 +375,22 @@
         class="screen"
     >
 
+
         <div class="section-title">
 
-            <span>02</span>
+            <span>
+                02
+            </span>
+
 
             <div>
 
-                <h2>点数一覧</h2>
+                <h2>
+                    点数一覧
+                </h2>
 
                 <p>
-                    送信された点数を確認できます。
+                    送信された点数を確認してください。
                 </p>
 
             </div>
@@ -257,69 +398,191 @@
         </div>
 
 
-        <!-- 件数 -->
 
-        <div class="list-header">
+        <!-- =========================
+             未完了
+        ========================== -->
 
-            <div>
+        <div class="score-section">
 
-                <p class="list-label">
-                    登録件数
-                </p>
 
-                <strong id="totalCount">
-                    0
-                </strong>
+            <div class="score-section-header">
 
-                <span>
-                    件
+
+                <div>
+
+                    <span class="section-number">
+                        01
+                    </span>
+
+
+                    <h3>
+                        未完了
+                    </h3>
+
+                </div>
+
+
+                <span
+                    id="waitingCount"
+                    class="count-badge"
+                >
+                    0件
                 </span>
 
+
             </div>
 
+
+
+            <div class="table-wrapper">
+
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+
+                            <th>
+                                番号
+                            </th>
+
+                            <th>
+                                人数
+                            </th>
+
+                            <th>
+                                点数
+                            </th>
+
+                            <th>
+                                操作
+                            </th>
+
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody
+                        id="waitingTableBody"
+                    ></tbody>
+
+
+                </table>
+
+
+            </div>
+
+
+
+            <div
+                id="waitingEmpty"
+                class="empty"
+            >
+                未確認の点数はありません。
+            </div>
+
+
         </div>
 
 
-        <!-- 表 -->
 
-        <div class="table-wrapper">
+        <!-- =========================
+             完了
+        ========================== -->
 
-            <table>
-
-                <thead>
-
-                    <tr>
-
-                        <th>番号</th>
-                        <th>人数</th>
-                        <th>点数</th>
-                        <th>状態</th>
-                        <th>操作</th>
-
-                    </tr>
-
-                </thead>
+        <div class="score-section completed-section">
 
 
-                <tbody id="scoreTableBody">
+            <div class="score-section-header">
 
-                </tbody>
 
-            </table>
+                <div>
+
+                    <span class="section-number">
+                        02
+                    </span>
+
+
+                    <h3>
+                        完了
+                    </h3>
+
+                </div>
+
+
+                <span
+                    id="completedCount"
+                    class="count-badge"
+                >
+                    0件
+                </span>
+
+
+            </div>
+
+
+
+            <div class="table-wrapper">
+
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+
+                            <th>
+                                番号
+                            </th>
+
+                            <th>
+                                人数
+                            </th>
+
+                            <th>
+                                点数
+                            </th>
+
+                            <th>
+                                状態
+                            </th>
+
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody
+                        id="completedTableBody"
+                    ></tbody>
+
+
+                </table>
+
+
+            </div>
+
+
+
+            <div
+                id="completedEmpty"
+                class="empty"
+            >
+                完了した点数はありません。
+            </div>
+
 
         </div>
 
-
-        <div
-            id="emptyMessage"
-            class="empty"
-        >
-            まだ点数は登録されていません。
-        </div>
 
     </section>
 
+
 </main>
+
 
 
 <footer>
@@ -329,10 +592,12 @@
 </footer>
 
 
+
 <script
     type="module"
     src="script.js"
 ></script>
+
 
 </body>
 
