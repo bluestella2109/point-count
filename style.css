@@ -32,7 +32,7 @@ body {
 
 
 /* =========================
-   Header
+   ヘッダー
 ========================= */
 
 .header {
@@ -43,7 +43,6 @@ body {
 .header-inner {
     max-width: 1100px;
     margin: 0 auto;
-    
     padding: 28px 20px;
 }
 
@@ -62,7 +61,7 @@ body {
 
 
 /* =========================
-   Container
+   メイン
 ========================= */
 
 .container {
@@ -73,7 +72,7 @@ body {
 
 
 /* =========================
-   Tabs
+   タブ
 ========================= */
 
 .tabs {
@@ -105,7 +104,7 @@ body {
 
 
 /* =========================
-   Screen
+   画面
 ========================= */
 
 .screen {
@@ -118,7 +117,7 @@ body {
 
 
 /* =========================
-   Section title
+   セクションタイトル
 ========================= */
 
 .section-title {
@@ -147,7 +146,7 @@ body {
 
 
 /* =========================
-   Form
+   入力カード
 ========================= */
 
 .form-card {
@@ -157,6 +156,11 @@ body {
     max-width: 650px;
     margin: 0 auto;
 }
+
+
+/* =========================
+   番号・人数
+========================= */
 
 .select-row {
     display: grid;
@@ -173,19 +177,14 @@ body {
     margin-bottom: 8px;
 }
 
-select {
-    width: 100%;
-    background: #080808;
-    color: white;
-    border: 1px solid #333;
-    padding: 15px;
-    border-radius: 4px;
-    font-size: 15px;
-    outline: none;
-}
+
+/* =========================
+   番号入力
+========================= */
 
 #numberInput {
     width: 100%;
+    height: 50px;
     background: #080808;
     color: white;
     border: 1px solid #333;
@@ -201,18 +200,41 @@ select {
     border-color: white;
 }
 
+
+/* =========================
+   人数プルダウン
+========================= */
+
+select {
+    width: 100%;
+    height: 50px;
+    background: #080808;
+    color: white;
+    border: 1px solid #333;
+    padding: 15px;
+    border-radius: 4px;
+    font-size: 15px;
+    outline: none;
+    font-family: inherit;
+}
+
 select:focus {
     border-color: white;
 }
 
 
 /* =========================
-   Score
+   点数入力エリア
 ========================= */
 
 .score-area {
     margin-bottom: 25px;
 }
+
+
+/* =========================
+   点数表示
+========================= */
 
 .score-display {
     height: 95px;
@@ -238,7 +260,7 @@ select:focus {
 
 
 /* =========================
-   Keypad
+   テンキー
 ========================= */
 
 .keypad {
@@ -257,6 +279,7 @@ select:focus {
     cursor: pointer;
     border-radius: 3px;
     transition: 0.1s;
+    -webkit-tap-highlight-color: transparent;
 }
 
 .key:hover {
@@ -278,7 +301,7 @@ select:focus {
 
 
 /* =========================
-   Submit
+   送信ボタン
 ========================= */
 
 .submit-button {
@@ -302,6 +325,11 @@ select:focus {
     transform: scale(0.99);
 }
 
+
+/* =========================
+   メッセージ
+========================= */
+
 .message {
     text-align: center;
     margin-top: 15px;
@@ -319,7 +347,7 @@ select:focus {
 
 
 /* =========================
-   List
+   一覧ヘッダー
 ========================= */
 
 .list-header {
@@ -348,12 +376,17 @@ select:focus {
 }
 
 
+/* =========================
+   全削除ボタン
+========================= */
+
 .danger-button {
     border: 1px solid #552020;
     background: transparent;
     color: #d66;
     padding: 10px 15px;
     cursor: pointer;
+    border-radius: 3px;
 }
 
 .danger-button:hover {
@@ -362,7 +395,7 @@ select:focus {
 
 
 /* =========================
-   Table
+   一覧テーブル
 ========================= */
 
 .table-wrapper {
@@ -402,10 +435,20 @@ tbody tr:hover {
     background: #151515;
 }
 
+
+/* =========================
+   点数
+========================= */
+
 .score-cell {
     font-size: 20px;
     font-weight: 700;
 }
+
+
+/* =========================
+   状態
+========================= */
 
 .status {
     display: inline-block;
@@ -423,6 +466,11 @@ tbody tr:hover {
     border-color: #333;
 }
 
+
+/* =========================
+   完了ボタン
+========================= */
+
 .complete-button {
     border: 1px solid #444;
     background: transparent;
@@ -430,6 +478,7 @@ tbody tr:hover {
     padding: 8px 12px;
     cursor: pointer;
     font-size: 12px;
+    border-radius: 3px;
 }
 
 .complete-button:hover {
@@ -445,7 +494,7 @@ tbody tr:hover {
 
 
 /* =========================
-   Empty
+   データなし
 ========================= */
 
 .empty {
@@ -458,7 +507,7 @@ tbody tr:hover {
 
 
 /* =========================
-   Footer
+   フッター
 ========================= */
 
 footer {
@@ -472,7 +521,7 @@ footer {
 
 
 /* =========================
-   Mobile
+   スマートフォン
 ========================= */
 
 @media (max-width: 600px) {
@@ -493,8 +542,16 @@ footer {
         margin-bottom: 30px;
     }
 
+    .tab {
+        padding: 14px 8px;
+    }
+
     .section-title h2 {
         font-size: 19px;
+    }
+
+    .section-title p {
+        font-size: 12px;
     }
 
     .form-card {
@@ -505,13 +562,37 @@ footer {
         gap: 10px;
     }
 
-    select {
-        padding: 13px 8px;
+    #numberInput {
+        height: 48px;
+        padding: 12px 10px;
         font-size: 14px;
+    }
+
+    select {
+        height: 48px;
+        padding: 12px 8px;
+        font-size: 14px;
+    }
+
+    .score-display {
+        height: 85px;
+    }
+
+    #scoreDisplay {
+        font-size: 42px;
+    }
+
+    .keypad {
+        gap: 6px;
     }
 
     .key {
         height: 60px;
+        font-size: 21px;
+    }
+
+    .submit-button {
+        height: 55px;
     }
 
     .list-header {
@@ -522,4 +603,38 @@ footer {
         font-size: 11px;
         padding: 8px;
     }
+
+    th {
+        padding: 12px;
+    }
+
+    td {
+        padding: 12px;
+    }
+
+}
+
+
+/* =========================
+   さらに小さい画面
+========================= */
+
+@media (max-width: 380px) {
+
+    .form-card {
+        padding: 15px;
+    }
+
+    .select-row {
+        grid-template-columns: 1fr;
+    }
+
+    .key {
+        height: 55px;
+    }
+
+    #scoreDisplay {
+        font-size: 38px;
+    }
+
 }
