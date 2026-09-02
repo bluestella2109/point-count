@@ -6,6 +6,7 @@
 ========================= */
 
 const STORAGE_KEY = "festivalScoreData";
+const NUMBER_KEY = "festivalCurrentNumber";
 
 
 /* =========================
@@ -18,7 +19,7 @@ const listTab = document.getElementById("listTab");
 const inputScreen = document.getElementById("inputScreen");
 const listScreen = document.getElementById("listScreen");
 
-const numberSelect = document.getElementById("numberSelect");
+const numberInput = document.getElementById("numberInput");
 const peopleSelect = document.getElementById("peopleSelect");
 
 const scoreDisplay = document.getElementById("scoreDisplay");
@@ -44,18 +45,28 @@ let score = "";
 
 
 /* =========================
-   番号選択肢
+   初期番号
 ========================= */
 
-for (let i = 1; i <= 100; i++) {
+function getCurrentNumber() {
 
-    const option = document.createElement("option");
+    const savedNumber =
+        localStorage.getItem(NUMBER_KEY);
 
-    option.value = i;
-    option.textContent = `${i}番`;
+    if (savedNumber) {
+        return savedNumber;
+    }
 
-    numberSelect.appendChild(option);
+    localStorage.setItem(
+        NUMBER_KEY,
+        "G-001"
+    );
+
+    return "G-001";
 }
+
+
+numberInput.value = getCurrentNumber();
 
 
 /* =========================
@@ -94,34 +105,61 @@ listTab.addEventListener("click", () => {
 
 
 /* =========================
+   番号の形式チェック
+========================= */
+
+numberInput.addEventListener(
+    "input",
+    () => {
+
+        numberInput.value =
+            numberInput.value.toUpperCase();
+
+    }
+);
+
+
+/* =========================
    テンキー
 ========================= */
 
-const keys = document.querySelectorAll(".key[data-number]");
+const keys =
+    document.querySelectorAll(
+        ".key[data-number]"
+    );
+
 
 keys.forEach(key => {
 
     key.addEventListener("click", () => {
 
-        const number = key.dataset.number;
+        const number =
+            key.dataset.number;
+
 
         /*
-         * 点数の最大値を9999点に設定
+         * 点数の最大値を9999点
          */
 
         if (score.length >= 4) {
             return;
         }
 
+
         /*
          * 最初の0を防止
          */
 
         if (score === "0") {
+
             score = number;
+
         } else {
+
             score += number;
+
         }
+
 
         updateScoreDisplay();
 
@@ -134,26 +172,33 @@ keys.forEach(key => {
    Cボタン
 ========================= */
 
-clearButton.addEventListener("click", () => {
+clearButton.addEventListener(
+    "click",
+    () => {
 
-    score = "";
+        score = "";
 
-    updateScoreDisplay();
+        updateScoreDisplay();
 
-});
+    }
+);
 
 
 /* =========================
    戻るボタン
 ========================= */
 
-backButton.addEventListener("click", () => {
+backButton.addEventListener(
+    "click",
+    () => {
 
-    score = score.slice(0, -1);
+        score =
+            score.slice(0, -1);
 
-    updateScoreDisplay();
+        updateScoreDisplay();
 
-});
+    }
+);
 
 
 /* =========================
@@ -162,7 +207,10 @@ backButton.addEventListener("click", () => {
 
 function updateScoreDisplay() {
 
-    scoreDisplay.textContent = score === "" ? "0" : score;
+    scoreDisplay.textContent =
+        score === ""
+            ? "0"
+            : score;
 
 }
 
@@ -173,11 +221,16 @@ function updateScoreDisplay() {
 
 function getScores() {
 
-    const data = localStorage.getItem(STORAGE_KEY);
+    const data =
+        localStorage.getItem(
+            STORAGE_KEY
+        );
+
 
     if (!data) {
         return [];
     }
+
 
     try {
 
@@ -209,151 +262,270 @@ function saveScores(data) {
 
 
 /* =========================
+   次の番号を作る
+========================= */
+
+function getNextNumber(number) {
+
+    /*
+     * G-001 → 001
+     */
+
+    const match =
+        number.match(/^G-(\d{3})$/);
+
+
+    if (!match) {
+
+        return "G-001";
+
+    }
+
+
+    const current =
+        Number(match[1]);
+
+
+    const next =
+        current + 1;
+
+
+    return `G-${String(next).padStart(3, "0")}`;
+
+}
+
+
+/* =========================
    送信
 ========================= */
 
-submitButton.addEventListener("click", () => {
+submitButton.addEventListener(
+    "click",
+    () => {
 
-    const number = numberSelect.value;
-    const people = peopleSelect.value;
+        const number =
+            numberInput.value
+                .trim()
+                .toUpperCase();
 
-    /*
-     * 入力チェック
-     */
 
-    if (!number) {
+        const people =
+            peopleSelect.value;
 
-        showMessage(
-            "番号を選択してください。",
-            "error"
+
+        /* -------------------------
+           番号チェック
+        ------------------------- */
+
+        if (
+            !/^G-\d{3}$/.test(number)
+        ) {
+
+            showMessage(
+                "番号は G-001 の形式で入力してください。",
+                "error"
+            );
+
+            numberInput.focus();
+
+            return;
+
+        }
+
+
+        /* -------------------------
+           人数チェック
+        ------------------------- */
+
+        if (!people) {
+
+            showMessage(
+                "人数を選択してください。",
+                "error"
+            );
+
+            return;
+
+        }
+
+
+        /* -------------------------
+           点数チェック
+        ------------------------- */
+
+        if (
+            score === "" ||
+            Number(score) < 0
+        ) {
+
+            showMessage(
+                "点数を入力してください。",
+                "error"
+            );
+
+            return;
+
+        }
+
+
+        /* -------------------------
+           既存番号チェック
+        ------------------------- */
+
+        const scores =
+            getScores();
+
+
+        const alreadyExists =
+            scores.some(
+                item =>
+                    item.number === number &&
+                    item.status !== "completed"
+            );
+
+
+        if (alreadyExists) {
+
+            showMessage(
+                "この番号はすでに登録されています。",
+                "error"
+            );
+
+            return;
+
+        }
+
+
+        /* -------------------------
+           新しいデータ
+        ------------------------- */
+
+        const newData = {
+
+            id: Date.now(),
+
+            number: number,
+
+            people: Number(people),
+
+            score: Number(score),
+
+            status: "waiting",
+
+            createdAt:
+                new Date().toISOString()
+
+        };
+
+
+        scores.push(newData);
+
+
+        /*
+         * 番号順に並べる
+         */
+
+        scores.sort(
+            (a, b) => {
+
+                const aNumber =
+                    Number(
+                        a.number.replace(
+                            "G-",
+                            ""
+                        )
+                    );
+
+                const bNumber =
+                    Number(
+                        b.number.replace(
+                            "G-",
+                            ""
+                        )
+                    );
+
+                return aNumber - bNumber;
+
+            }
         );
 
-        return;
-    }
+
+        saveScores(scores);
 
 
-    if (!people) {
+        /* -------------------------
+           次の番号へ
+        ------------------------- */
 
-        showMessage(
-            "人数を選択してください。",
-            "error"
+        const nextNumber =
+            getNextNumber(number);
+
+
+        localStorage.setItem(
+            NUMBER_KEY,
+            nextNumber
         );
 
-        return;
-    }
+
+        numberInput.value =
+            nextNumber;
 
 
-    if (!score || Number(score) < 0) {
+        /* -------------------------
+           入力リセット
+        ------------------------- */
 
-        showMessage(
-            "点数を入力してください。",
-            "error"
-        );
+        score = "";
 
-        return;
-    }
+        peopleSelect.value = "";
 
-
-    /*
-     * 同じ番号が存在するか確認
-     */
-
-    const scores = getScores();
-
-    const alreadyExists = scores.some(
-        item =>
-            item.number === Number(number) &&
-            item.status !== "completed"
-    );
+        updateScoreDisplay();
 
 
-    if (alreadyExists) {
+        /* -------------------------
+           完了メッセージ
+        ------------------------- */
 
         showMessage(
-            "この番号はすでに登録されています。",
-            "error"
+            `${number} を送信しました。次は ${nextNumber} です。`,
+            "success"
         );
 
-        return;
+
+        renderScores();
+
     }
-
-
-    /*
-     * 新しいデータ
-     */
-
-    const newData = {
-
-        id: Date.now(),
-
-        number: Number(number),
-
-        people: Number(people),
-
-        score: Number(score),
-
-        status: "waiting",
-
-        createdAt: new Date().toISOString()
-
-    };
-
-
-    scores.push(newData);
-
-    /*
-     * 番号順に並べる
-     */
-
-    scores.sort(
-        (a, b) => a.number - b.number
-    );
-
-
-    saveScores(scores);
-
-
-    /*
-     * 入力をリセット
-     */
-
-    score = "";
-
-    numberSelect.value = "";
-    peopleSelect.value = "";
-
-    updateScoreDisplay();
-
-
-    showMessage(
-        "点数を送信しました。",
-        "success"
-    );
-
-
-    renderScores();
-
-});
+);
 
 
 /* =========================
    メッセージ
 ========================= */
 
-function showMessage(text, type) {
+function showMessage(
+    text,
+    type
+) {
 
-    inputMessage.textContent = text;
+    inputMessage.textContent =
+        text;
 
     inputMessage.className =
         "message " + type;
 
 
-    setTimeout(() => {
+    setTimeout(
+        () => {
 
-        inputMessage.textContent = "";
-        inputMessage.className = "message";
+            inputMessage.textContent =
+                "";
 
-    }, 3000);
+            inputMessage.className =
+                "message";
+
+        },
+        3000
+    );
 
 }
 
@@ -364,69 +536,77 @@ function showMessage(text, type) {
 
 function renderScores() {
 
-    const scores = getScores();
+    const scores =
+        getScores();
 
-    scoreTableBody.innerHTML = "";
 
-    totalCount.textContent = scores.length;
+    scoreTableBody.innerHTML =
+        "";
+
+
+    totalCount.textContent =
+        scores.length;
 
 
     if (scores.length === 0) {
 
-        emptyMessage.style.display = "block";
+        emptyMessage.style.display =
+            "block";
 
         return;
 
     }
 
 
-    emptyMessage.style.display = "none";
+    emptyMessage.style.display =
+        "none";
 
 
     scores.forEach(item => {
 
-        const row = document.createElement("tr");
+        const row =
+            document.createElement("tr");
 
 
-        /*
-         * 番号
-         */
+        /* 番号 */
 
-        const numberCell = document.createElement("td");
+        const numberCell =
+            document.createElement("td");
 
         numberCell.textContent =
-            `${item.number}番`;
+            item.number;
 
 
-        /*
-         * 人数
-         */
+        /* 人数 */
 
-        const peopleCell = document.createElement("td");
+        const peopleCell =
+            document.createElement("td");
 
         peopleCell.textContent =
             `${item.people}人`;
 
 
-        /*
-         * 点数
-         */
+        /* 点数 */
 
-        const scoreCell = document.createElement("td");
+        const scoreCell =
+            document.createElement("td");
 
-        scoreCell.className = "score-cell";
+        scoreCell.className =
+            "score-cell";
 
         scoreCell.textContent =
             `${item.score}点`;
 
 
-        /*
-         * 状態
-         */
+        /* 状態 */
 
-        const statusCell = document.createElement("td");
+        const statusCell =
+            document.createElement("td");
 
-        const status = document.createElement("span");
+
+        const status =
+            document.createElement("span");
+
 
         status.className =
             item.status === "completed"
@@ -440,27 +620,34 @@ function renderScores() {
                 : "未確認";
 
 
-        statusCell.appendChild(status);
+        statusCell.appendChild(
+            status
+        );
 
 
-        /*
-         * 操作
-         */
+        /* 操作 */
 
-        const actionCell = document.createElement("td");
+        const actionCell =
+            document.createElement("td");
+
 
         const completeButton =
             document.createElement("button");
+
 
         completeButton.className =
             "complete-button";
 
 
-        if (item.status === "completed") {
+        if (
+            item.status === "completed"
+        ) {
 
-            completeButton.textContent = "完了済み";
+            completeButton.textContent =
+                "完了済み";
 
-            completeButton.disabled = true;
+            completeButton.disabled =
+                true;
 
         } else {
 
@@ -470,31 +657,49 @@ function renderScores() {
 
             completeButton.addEventListener(
                 "click",
-                () => completeScore(item.id)
+                () => {
+
+                    completeScore(
+                        item.id
+                    );
+
+                }
             );
 
         }
 
 
-        actionCell.appendChild(completeButton);
+        actionCell.appendChild(
+            completeButton
+        );
 
 
-        /*
-         * 行に追加
-         */
+        /* 行へ追加 */
 
-        row.appendChild(numberCell);
+        row.appendChild(
+            numberCell
+        );
 
-        row.appendChild(peopleCell);
+        row.appendChild(
+            peopleCell
+        );
 
-        row.appendChild(scoreCell);
+        row.appendChild(
+            scoreCell
+        );
 
-        row.appendChild(statusCell);
+        row.appendChild(
+            statusCell
+        );
 
-        row.appendChild(actionCell);
+        row.appendChild(
+            actionCell
+        );
 
 
-        scoreTableBody.appendChild(row);
+        scoreTableBody.appendChild(
+            row
+        );
 
     });
 
@@ -507,11 +712,15 @@ function renderScores() {
 
 function completeScore(id) {
 
-    const scores = getScores();
+    const scores =
+        getScores();
 
-    const target = scores.find(
-        item => item.id === id
-    );
+
+    const target =
+        scores.find(
+            item =>
+                item.id === id
+        );
 
 
     if (!target) {
@@ -521,7 +730,7 @@ function completeScore(id) {
 
     const confirmed =
         confirm(
-            `${target.number}番の点数を確認して完了にしますか？`
+            `${target.number} の点数を確認して完了にしますか？`
         );
 
 
@@ -530,13 +739,16 @@ function completeScore(id) {
     }
 
 
-    target.status = "completed";
+    target.status =
+        "completed";
+
 
     target.completedAt =
         new Date().toISOString();
 
 
     saveScores(scores);
+
 
     renderScores();
 
@@ -551,7 +763,9 @@ clearAllButton.addEventListener(
     "click",
     () => {
 
-        const scores = getScores();
+        const scores =
+            getScores();
+
 
         if (scores.length === 0) {
             return;
